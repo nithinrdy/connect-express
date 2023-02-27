@@ -1,19 +1,17 @@
 import express from "express";
-import cors, { CorsOptions } from "cors";
+import cors from "cors";
+import { corsOptions, setCORSHeaders } from "../config/corsSettings";
+import ProxyRouter from "../routes/proxyRoute";
+
 const app = express();
 const port = process.env.PORT || 5000;
 
-const corsOptions: CorsOptions = {
-	origin: function (origin, callback) {
-		callback(null, true); // Allow all origins since server operates behind a reverse proxy
-	},
-};
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
+app.use(setCORSHeaders);
 
-app.get("/", (req, res) => {
-	res.send("Hello World!");
-});
+app.use("/express-proxy-api", ProxyRouter)
 
 app.listen(port, () => {
 	console.log(`Listening at http://localhost:${port}`);
