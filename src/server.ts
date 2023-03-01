@@ -12,6 +12,7 @@ import path from "path";
 import authRouter from "./routes/authRoutes";
 import refreshRouter from "./routes/refreshRoute";
 import editProfileRouter from "./routes/editProfileRoute";
+import favoriteRouter from "./routes/favoriteRoutes";
 
 config();
 createConn();
@@ -101,6 +102,7 @@ app.use("/api/refresh", refreshRouter);
 app.use(jwtAuth);
 
 app.use("/api/editProfile", editProfileRouter);
+app.use("/api/favorite", favoriteRouter);
 
 app.get("/*", function (req, res) {
 	res.sendFile(path.join(__dirname, "build", "index.html"));
