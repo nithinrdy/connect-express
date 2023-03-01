@@ -9,7 +9,6 @@ interface DecodedJwt {
 }
 
 const handleRefresh = async (req: Request, res: Response) => {
-  console.log("refreshing token")
 	if (!supabaseClient) {
 		return res.status(500).json("Server error.");
 	}

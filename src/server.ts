@@ -37,7 +37,6 @@ io.on("connection", (socket) => {
 			query: { username },
 		},
 	} = socket;
-	console.log("User " + username + " connected with socketID " + id);
 	socket.join(username as string);
 
 	socket.on("sendOffer", (data) => {
@@ -63,7 +62,6 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("startCall", (data) => {
-		console.log(data.caller + " is calling " + data.otherEnd);
 		if (!io.sockets.adapter.rooms.get(data.otherEnd)) {
 			io.sockets.in(data.caller).emit("notOnline", {
 				message: "User " + data.caller + " is not online",
@@ -78,12 +76,10 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("acceptCall", (data) => {
-		console.log(data.caller + " is accepting call");
 		io.sockets.in(data.caller).emit("callAccepted");
 	});
 
 	socket.on("disconnect", () => {
-		console.log("User " + username + " disconnected with socketID " + id);
 		socket.leave(username as string);
 	});
 });

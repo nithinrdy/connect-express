@@ -19,7 +19,6 @@ const handleAdd = async (req: Request, res: Response) => {
 		.eq("starred", userToAdd);
 
 	if (error) {
-		console.log(error);
 		return res.status(500).json("Server error.");
 	}
 
