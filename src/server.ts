@@ -37,6 +37,7 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("startCall", (data) => {
+		console.log(data.caller + " is calling " + data.otherEnd);
 		if (!io.sockets.adapter.rooms.get(data.otherEnd)) {
 			io.sockets.in(data.caller).emit("notOnline", {
 				message: "User " + data.caller + " is not online",
@@ -51,6 +52,7 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("acceptCall", (data) => {
+		console.log(data.caller + " is accepting call");
 		io.sockets.in(data.caller).emit("callAccepted");
 	});
 
