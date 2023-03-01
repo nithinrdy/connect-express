@@ -1,9 +1,34 @@
 import { Server } from "socket.io";
+import express from "express";
+import cors from "cors";
+import { createServer } from "http";
+import corsOptions from "./config/cors";
+import cookieParser from "cookie-parser";
+import allowCORS from "./middleware/allowCORS";
+import { config } from "dotenv";
+import { createConn } from "./config/dbConn";
+import jwtAuth from "./middleware/jwtAuth";
+import path from "path";
+import authRouter from "./routes/authRoutes";
+import refreshRouter from "./routes/refreshRoute";
+import editProfileRouter from "./routes/editProfileRoute";
 
-const port = process.env.PORT || 5000;
+config();
+createConn();
 
-const io = new Server();
+const port = process.env.PORT || 8000;
 
+// Setting up socket.io and express servers
+const app = express();
+const server = createServer(app);
+const io = new Server(server, {
+	cors: {
+		origin: "*",
+		methods: ["GET", "POST"],
+	},
+});
+
+// All of socket.io's events
 io.on("connection", (socket) => {
 	const {
 		id,
@@ -62,9 +87,24 @@ io.on("connection", (socket) => {
 	});
 });
 
-io.listen(port as number, {
-	cors: {
-		origin: "*",
-		methods: ["GET", "POST"],
-	},
+// Middleware
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(cookieParser());
+app.use(allowCORS);
+
+// Routes
+app.use("/api/auth", authRouter);
+// app.use("/api/refresh", refreshRouter);
+
+app.use(jwtAuth);
+
+// app.use("/api/editProfile", editProfileRouter);
+
+app.get("/*", function (req, res) {
+	res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
+server.listen(port, () => {
+	console.log(`Listening at http://localhost:${port}`);
 });
