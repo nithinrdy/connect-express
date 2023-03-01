@@ -14,6 +14,7 @@ const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
 	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!, (err, decoded) => {
 		if (err) return res.sendStatus(403);
 		req.body.username = (decoded as DecodedJwt).username;
+		req.body.token = token;
 		next();
 	});
 };

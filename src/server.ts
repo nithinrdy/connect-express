@@ -99,7 +99,7 @@ app.use("/api/auth", authRouter);
 
 app.use(jwtAuth);
 
-// app.use("/api/editProfile", editProfileRouter);
+app.use("/api/editProfile", editProfileRouter);
 
 app.get("/*", function (req, res) {
 	res.sendFile(path.join(__dirname, "build", "index.html"));
