@@ -95,7 +95,7 @@ app.use(allowCORS);
 
 // Routes
 app.use("/api/auth", authRouter);
-// app.use("/api/refresh", refreshRouter);
+app.use("/api/refresh", refreshRouter);
 
 app.use(jwtAuth);
 

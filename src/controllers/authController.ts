@@ -59,7 +59,7 @@ const handleLogin = async (req: Request, res: Response) => {
 	}
 	res.cookie("refreshToken", refreshToken, {
 		httpOnly: true,
-		sameSite: true,
+		sameSite: "none",
 		secure: true,
 	});
 
@@ -167,7 +167,7 @@ const handleRegistration = async (req: Request, res: Response) => {
 	}
 	res.cookie("refreshToken", refreshToken, {
 		httpOnly: true,
-		sameSite: true,
+		sameSite: "none",
 		secure: true,
 	});
 
@@ -192,7 +192,7 @@ const handleLogout = async (req: Request, res: Response) => {
 	}
 	res.clearCookie("refreshToken", {
 		httpOnly: true,
-		sameSite: true,
+		sameSite: "none",
 		secure: true,
 	});
 

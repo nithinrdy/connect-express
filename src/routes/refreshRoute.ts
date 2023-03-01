@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { handleRefresh } from "../controllers/refreshController";
+import handleRefresh from "../controllers/refreshController";
 
 const router = Router();
 
-router.post("/", handleRefresh);
+router.get("/", handleRefresh);
 export default router;
