@@ -8,6 +8,9 @@ interface DecodedJwt {
 }
 
 const jwtAuth = async (req: Request, res: Response, next: NextFunction) => {
+	if (!req.url.includes("api")) {
+		return next();
+	}
 	const authHeader = req.headers["authorization"];
 	const token = authHeader && authHeader.split(" ")[1];
 	if (token == null) return res.sendStatus(401);

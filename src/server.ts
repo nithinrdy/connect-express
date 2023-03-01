@@ -92,6 +92,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(allowCORS);
+app.use(express.static(path.join(__dirname, "build")));
 
 // Routes
 app.use("/api/auth", authRouter);
