@@ -2,7 +2,7 @@ import { CorsOptions } from "cors";
 
 const corsOptions: CorsOptions = {
 	origin: function (origin, callback) {
-		callback(null, true); // Still figuring this out...
+		callback(null, true); // k just gotta change this in prod
 	},
 };
 
