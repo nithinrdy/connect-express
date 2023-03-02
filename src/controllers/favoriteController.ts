@@ -26,16 +26,13 @@ const handleAdd = async (req: Request, res: Response) => {
 		return res
 			.status(202)
 			.json(
-				"Favorite already exists. You may unfavorite this user from the favorites page."
+				"Favorite already exists. You may un-favorite this user from the favorites page."
 			);
 	}
 
 	const { data: data2, error: error2 } = await supabaseClient
 		.from("stars")
-		.insert([
-			{ starrer: username, starred: userToAdd },
-			{ starrer: userToAdd, starred: username },
-		]);
+		.insert({ starrer: username, starred: userToAdd });
 
 	if (error2) {
 		return res.status(500).json("Server error.");
@@ -74,9 +71,7 @@ const handleRemove = async (req: Request, res: Response) => {
 		.from("stars")
 		.delete()
 		.eq("starrer", username)
-		.eq("starred", userToRemove)
-		.or("starrer", userToRemove)
-		.eq("starred", username);
+		.eq("starred", userToRemove);
 
 	if (error2) {
 		return res.status(500).json("Server error.");
