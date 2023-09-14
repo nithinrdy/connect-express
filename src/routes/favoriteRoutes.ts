@@ -9,6 +9,6 @@ const router = Router();
 
 router.get("/fetch", handleFetch);
 router.post("/add", handleAdd);
-router.post("/remove", handleRemove);
+router.delete("/remove", handleRemove);
 
 export default router;

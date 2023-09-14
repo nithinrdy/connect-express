@@ -47,7 +47,7 @@ const handleRemove = async (req: Request, res: Response) => {
 	}
 
 	const { username } = req.body;
-	const { userToRemove } = req.body;
+	const { userToRemove } = req.query;
 
 	if (!username || !userToRemove) {
 		return res.status(400).json("Bad request. Missing data.");
